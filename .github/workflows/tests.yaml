@@ -50,7 +50,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install libqpdf-dev
+          sudo apt-get install qpdf libqpdf-dev
 
       - name: Install qpdf (macOS)
         if: runner.os == 'macOS'
