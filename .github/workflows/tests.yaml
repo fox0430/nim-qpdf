@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/tests.yaml'
-      - 'example/**'
+      - 'examples/**'
       - 'qpdf.nim'
       - 'qpdf.nimble'
       - 'lowlevel/**'
@@ -14,7 +14,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/tests.yaml'
-      - 'example/**'
+      - 'examples/**'
       - 'qpdf.nim'
       - 'qpdf.nimble'
       - 'lowlevel/**'
@@ -50,7 +50,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install libqpdf-dev
+          sudo apt-get install qpdf libqpdf-dev
 
       - name: Install qpdf (macOS)
         if: runner.os == 'macOS'
@@ -81,3 +81,14 @@ jobs:
 
       - name: Run tests
         run: nimble test -y
+
+      - name: Install nim-qpdf
+        run: nimble install
+
+      - name: Run example
+        run: |
+          nim cpp -r examples/basic_usage.nim
+
+      - name: Check generated PDF
+        run: |
+          qpdf --check output.pdf

@@ -457,7 +457,7 @@ proc getMessageDetail*(
   exc: ptr QPDFExc
 ): StdString {.importcpp: "#->getMessageDetail()".}
 
-proc what*(exc: ptr QPDFExc): cstring {.importcpp: "#->what()".}
+proc what*(exc: ptr QPDFExc): cstring {.importcpp: "(char*)(#->what())".}
 
 proc getWarnings*(qpdf: var QPDF): StdVector[QPDFExc] {.importcpp: "#.getWarnings()".}
 

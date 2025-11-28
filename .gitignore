@@ -5,4 +5,7 @@ htmldocs/
 tests/*
 !tests/*.*
 
+examples/*
+!examples/*.*
+
 qpdf
