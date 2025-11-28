@@ -31,11 +31,16 @@ jobs:
       matrix:
         os:
           - 'ubuntu-latest'
+          - 'macos-latest'
         nim-version:
           - '2.0.6'
           - '2.0.16'
           - 'stable'
           - 'devel'
+        exclude:
+          # Nim nightlies don't provide arm64 macOS builds
+          - os: 'macos-latest'
+            nim-version: 'devel'
 
     name: Test on ${{ matrix.nim-version }} (${{ matrix.os }})
     steps:

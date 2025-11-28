@@ -92,7 +92,8 @@ proc saveToMemory*(pdf: PdfDoc, linearize: bool = false): seq[byte] =
 
 proc version*(pdf: PdfDoc): string =
   ## Get PDF version string (e.g., "1.7")
-  toString(pdf.qpdf[].getPDFVersion())
+  let ver = pdf.qpdf[].getPDFVersion()
+  toString(ver)
 
 proc isEncrypted*(pdf: PdfDoc): bool =
   ## Check if PDF is encrypted
