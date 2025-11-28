@@ -6,6 +6,10 @@ when defined(macosx):
   const brewPrefix {.strdefine.} = "/opt/homebrew"
   {.passC: "-I" & brewPrefix & "/include".}
   {.passL: "-L" & brewPrefix & "/lib -lqpdf".}
+elif defined(windows):
+  const qpdfPath {.strdefine.} = r"C:\Program Files\qpdf"
+  {.passC: "-I" & qpdfPath & r"\include".}
+  {.passL: "-L" & qpdfPath & r"\lib -lqpdf".}
 else:
   # linux
   {.passL: "-lqpdf".}
