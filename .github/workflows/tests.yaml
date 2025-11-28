@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/tests.yaml'
-      - 'example/**'
+      - 'examples/**'
       - 'qpdf.nim'
       - 'qpdf.nimble'
       - 'lowlevel/**'
@@ -14,7 +14,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/tests.yaml'
-      - 'example/**'
+      - 'examples/**'
       - 'qpdf.nim'
       - 'qpdf.nimble'
       - 'lowlevel/**'
@@ -81,3 +81,11 @@ jobs:
 
       - name: Run tests
         run: nimble test -y
+
+      - name: Run example
+        run: |
+          nim cpp -r examples/basic_usage.nim
+
+      - name: Check generated PDF
+        run: |
+          qpdf --check output.pdf
