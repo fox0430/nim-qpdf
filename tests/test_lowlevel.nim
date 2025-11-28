@@ -21,17 +21,20 @@ suite "StdVector":
     check vec.len == 0
 
 suite "SharedPtr":
-  test "isNil":
+  setup:
     var qpdf = createQPDF()
+
+  teardown:
+    qpdf.reset()
+
+  test "isNil":
     check not qpdf.isNil
 
   test "get":
-    var qpdf = createQPDF()
     let p = qpdf.get()
     check p != nil
 
   test "dereference":
-    var qpdf = createQPDF()
     qpdf[].emptyPDF()
     check qpdf[].getAllPages().len == 0
 
@@ -168,28 +171,34 @@ suite "QPDFObjectHandle conversion":
     check copy.hasKey(toStdString("/Key"))
 
 suite "QPDF settings":
-  test "setSuppressWarnings":
+  setup:
     var qpdf = createQPDF()
+
+  teardown:
+    qpdf.reset()
+
+  test "setSuppressWarnings":
     qpdf[].setSuppressWarnings(true)
-    # No exception = success
 
   test "setAttemptRecovery":
-    var qpdf = createQPDF()
     qpdf[].setAttemptRecovery(true)
 
   test "anyWarnings":
-    var qpdf = createQPDF()
     qpdf[].emptyPDF()
     check not qpdf[].anyWarnings()
 
   test "numWarnings":
-    var qpdf = createQPDF()
     qpdf[].emptyPDF()
     check qpdf[].numWarnings() == 0
 
 suite "QPDF object operations":
-  test "makeIndirectObject":
+  setup:
     var qpdf = createQPDF()
+
+  teardown:
+    qpdf.reset()
+
+  test "makeIndirectObject":
     qpdf[].emptyPDF()
     let dict = newDictionary()
     let indirect = qpdf[].makeIndirectObject(dict)
@@ -197,7 +206,6 @@ suite "QPDF object operations":
     check indirect.getObjectID() > 0
 
   test "getObjectByID":
-    var qpdf = createQPDF()
     qpdf[].emptyPDF()
     let dict = qpdf[].makeIndirectObject(newDictionary())
     let id = dict.getObjectID()
@@ -206,7 +214,6 @@ suite "QPDF object operations":
     check retrieved.isDictionary()
 
   test "getObjGen":
-    var qpdf = createQPDF()
     qpdf[].emptyPDF()
     let dict = qpdf[].makeIndirectObject(newDictionary())
     let og = dict.getObjGen()
@@ -227,30 +234,32 @@ suite "QUtil":
     check toString(pdfTime).startsWith("D:2024")
 
 suite "Stream operations":
-  test "newStream and replaceStreamData":
+  setup:
     var qpdf = createQPDF()
+
+  teardown:
+    qpdf.reset()
+
+  test "newStream and replaceStreamData":
     qpdf[].emptyPDF()
     var stream = newStream(qpdf.get())
     check stream.isStream()
     stream.replaceStreamData(toStdString("test data"), newNull(), newNull())
-    # isDataModified may not return true for new streams
-    # Just check the stream is valid
 
   test "getDict":
-    var qpdf = createQPDF()
     qpdf[].emptyPDF()
     var stream = newStream(qpdf.get())
     let dict = stream.getDict()
     check dict.isDictionary()
 
   test "getStreamData":
-    var qpdf = createQPDF()
     qpdf[].emptyPDF()
     var stream = newStream(qpdf.get())
     stream.replaceStreamData(toStdString("hello"), newNull(), newNull())
-    let buf = stream.getStreamData(qpdf_dl_all)
+    var buf = stream.getStreamData(qpdf_dl_all)
     check not buf.isNil
     check buf[].getSize() == 5
+    buf.reset()
 
 suite "Rectangle":
   test "getArrayAsRectangle":
