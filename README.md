@@ -9,13 +9,10 @@ Nim bindings for the [qpdf](https://qpdf.sourceforge.io) C++ library.
 ## Usage
 
 ```nim
-import qpdf
+import pkg/qpdf
 
 # Create new PDF
 var pdf = newPdf()
-
-# Open existing PDF
-var pdf = openPdf("input.pdf")
 
 # Basic info
 echo "Pages: ", pdf.numPages
