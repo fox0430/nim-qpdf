@@ -36,7 +36,6 @@ jobs:
           - '2.0.0'
           - '2.0.16'
           - 'stable'
-          - 'devel'
 
     name: Test on ${{ matrix.nim-version }} (${{ matrix.os }})
     steps:
