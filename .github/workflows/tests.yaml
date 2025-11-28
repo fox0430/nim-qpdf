@@ -41,9 +41,11 @@ jobs:
     name: Test on ${{ matrix.nim-version }} (${{ matrix.os }})
     steps:
       - uses: actions/checkout@v6
-      run: |
-        sudo apt-get update
-        sudo apt-get install libqpdf-dev
+
+      - name: Install qpdf
+        run: |
+          sudo apt-get update
+          sudo apt-get install libqpdf-dev
 
       - name: Cache nimble
         id: cache-nimble
@@ -67,6 +69,5 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
         if: matrix.nim-version == 'devel'
 
-      - name: Install qpdf
-      run: |
-        nimble test -y
+      - name: Run tests
+        run: nimble test -y
