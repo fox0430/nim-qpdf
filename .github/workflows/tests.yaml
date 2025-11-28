@@ -82,6 +82,9 @@ jobs:
       - name: Run tests
         run: nimble test -y
 
+      - name: Install nim-qpdf
+        run: nimble install
+
       - name: Run example
         run: |
           nim cpp -r examples/basic_usage.nim
