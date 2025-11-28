@@ -42,17 +42,16 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-       - name: Install qpdf (Linux)
-         if: runner.os == 'Linux'
-         run: |
-           sudo apt-get update
-           sudo apt-get install libqpdf-dev
+      - name: Install qpdf (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install libqpdf-dev
 
-       - name: Install qpdf (macOS)
-         if: runner.os == 'macOS'
-         run: |
-           brew install qpdf
-
+      - name: Install qpdf (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install qpdf
 
       - name: Cache nimble
         id: cache-nimble
