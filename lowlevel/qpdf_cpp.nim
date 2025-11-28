@@ -36,7 +36,7 @@ proc initStdString*(
   s: cstring, len: csize_t
 ): StdString {.importcpp: "std::string(@)", constructor.}
 
-proc c_str*(s: StdString): cstring {.importcpp: "#.c_str()".}
+proc c_str*(s: StdString): cstring {.importcpp: "(char*)#.c_str()".}
 proc size*(s: StdString): csize_t {.importcpp: "#.size()".}
 proc data*(s: StdString): ptr char {.importcpp: "#.data()".}
 
@@ -205,7 +205,7 @@ proc initQPDFObjectHandle*(): QPDFObjectHandle {.
 # Type checking
 proc isInitialized*(oh: QPDFObjectHandle): bool {.importcpp: "#.isInitialized()".}
 proc getTypeCode*(oh: QPDFObjectHandle): QpdfObjectType {.importcpp: "#.getTypeCode()".}
-proc getTypeName*(oh: QPDFObjectHandle): cstring {.importcpp: "#.getTypeName()".}
+proc getTypeName*(oh: QPDFObjectHandle): cstring {.importcpp: "(char*)#.getTypeName()".}
 proc isBool*(oh: QPDFObjectHandle): bool {.importcpp: "#.isBool()".}
 proc isNull*(oh: QPDFObjectHandle): bool {.importcpp: "#.isNull()".}
 proc isInteger*(oh: QPDFObjectHandle): bool {.importcpp: "#.isInteger()".}
@@ -302,7 +302,7 @@ proc getDict*(oh: QPDFObjectHandle): QPDFObjectHandle {.importcpp: "#.getDict()"
 proc isDataModified*(oh: QPDFObjectHandle): bool {.importcpp: "#.isDataModified()".}
 proc getStreamData*(
   oh: QPDFObjectHandle, level: QpdfStreamDecodeLevel = qpdf_dl_generalized
-): SharedPtr[Buffer] {.importcpp: "#.getStreamData(@)".}
+): SharedPtr[Buffer] {.importcpp: "#.getStreamData((qpdf_stream_decode_level_e)@)".}
 
 proc getRawStreamData*(
   oh: QPDFObjectHandle
