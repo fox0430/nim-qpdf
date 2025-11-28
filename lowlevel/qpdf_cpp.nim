@@ -2,7 +2,13 @@
 ##
 ## Note: This module requires the C++ backend.
 
-{.passL: "-lqpdf".}
+when defined(macosx):
+  const brewPrefix {.strdefine.} = "/opt/homebrew"
+  {.passC: "-I" & brewPrefix & "/include".}
+  {.passL: "-L" & brewPrefix & "/lib -lqpdf".}
+else:
+  # linux
+  {.passL: "-lqpdf".}
 {.push header: "<qpdf/QPDF.hh>".}
 
 # Forward declarations and basic types
