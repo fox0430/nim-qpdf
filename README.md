@@ -3,7 +3,7 @@ Nim bindings for the [qpdf](https://qpdf.sourceforge.io) C++ library.
 
 ## Requirements
 
-- [Nim](https://nim-lang.org) 2.0+
+- [Nim](https://nim-lang.org) 2.0.6+
 - [qpdf](https://qpdf.sourceforge.io) 11.0+ (`libqpdf-dev`)
 
 ## Usage
