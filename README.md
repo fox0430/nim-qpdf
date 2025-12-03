@@ -39,9 +39,8 @@ let bytes = pdf.saveToMemory()
 nim cpp -r yourfile.nim
 ```
 
-### Nimble
-
-Add the following lines to your .nimble:
+> [!NOTE]
+> Add the following lines to your .nimble
 ```
 backend = "cpp"
 ```
